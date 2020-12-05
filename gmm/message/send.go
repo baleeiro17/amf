@@ -53,7 +53,9 @@ func SendNotification(ue *context.RanUe, nasMsg []byte) {
 		} else {
 			logger.GmmLog.Warnf("[NAS] T3565 expires, retransmit Notification (retry: %d)", amfUe.T3565RetryTimes)
 			ngap_message.SendDownlinkNasTransport(ue, nasMsg, nil)
-			amfUe.T3565.Reset(context.TimeT3565)
+			if amfUe.T3565 != nil {
+				amfUe.T3565.Reset(context.TimeT3565)
+			}
 		}
 	})
 }
@@ -103,7 +105,10 @@ func SendAuthenticationRequest(ue *context.RanUe) {
 		} else {
 			logger.GmmLog.Warnf("[NAS] T3560 expires, retransmit Authentication Request (retry: %d)", amfUe.T3560RetryTimes)
 			ngap_message.SendDownlinkNasTransport(ue, nasMsg, nil)
-			amfUe.T3560.Reset(context.TimeT3560)
+			if amfUe.T3560 != nil {
+				amfUe.T3560.Reset(context.TimeT3560)
+			}
+
 		}
 	})
 }
@@ -214,7 +219,9 @@ func SendSecurityModeCommand(ue *context.RanUe, eapSuccess bool, eapMessage stri
 		} else {
 			logger.GmmLog.Warnf("[NAS] T3560 expires, retransmit Security Mode Command (retry: %d)", amfUe.T3560RetryTimes)
 			ngap_message.SendDownlinkNasTransport(ue, nasMsg, nil)
-			amfUe.T3560.Reset(context.TimeT3560)
+			if amfUe.T3560 != nil {
+				amfUe.T3560.Reset(context.TimeT3560)
+			}
 		}
 	})
 }
@@ -253,7 +260,9 @@ func SendDeregistrationRequest(ue *context.RanUe, accessType uint8, reRegistrati
 		} else {
 			logger.GmmLog.Warnf("[NAS] T3522 expires, retransmit Deregistration Request (retry: %d)", amfUe.T3522RetryTimes)
 			ngap_message.SendDownlinkNasTransport(ue, nasMsg, nil)
-			amfUe.T3522.Reset(context.TimeT3522)
+			if amfUe.T3522 != nil {
+				amfUe.T3522.Reset(context.TimeT3522)
+			}
 		}
 	})
 }
@@ -304,7 +313,9 @@ func SendRegistrationAccept(
 		} else {
 			logger.GmmLog.Warnf("[NAS] T3550 expires, retransmit Registration Accept (retry: %d)", ue.T3550RetryTimes)
 			ngap_message.SendDownlinkNasTransport(ue.RanUe[anType], nasMsg, nil)
-			ue.T3550.Reset(context.TimeT3550)
+			if ue.T3550 != nil {
+				ue.T3550.Reset(context.TimeT3550)
+			}
 		}
 	})
 }

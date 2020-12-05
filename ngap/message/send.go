@@ -8,6 +8,7 @@ import (
 	"free5gc/src/amf/logger"
 	"free5gc/src/amf/producer/callback"
 	"free5gc/src/amf/util"
+	"net"
 	"time"
 
 	"github.com/sirupsen/logrus"
@@ -20,7 +21,8 @@ func init() {
 }
 
 func SendToRan(ran *context.AmfRan, packet []byte) {
-
+	var addr net.Addr
+	var remote_ip string
 	if ran == nil {
 		ngaplog.Error("Ran is nil")
 		return
@@ -31,7 +33,14 @@ func SendToRan(ran *context.AmfRan, packet []byte) {
 		return
 	}
 
-	ngaplog.Debugf("[NGAP] Send To Ran [IP: %s]", ran.Conn.RemoteAddr().String())
+	addr = ran.Conn.RemoteAddr()
+	remote_ip = "Undefined"
+
+	if addr != nil {
+		remote_ip = addr.String()
+	}
+
+	ngaplog.Debugf("[NGAP] Send To Ran [IP: %s]", remote_ip)
 
 	if n, err := ran.Conn.Write(packet); err != nil {
 		ngaplog.Errorf("Send error: %+v", err)

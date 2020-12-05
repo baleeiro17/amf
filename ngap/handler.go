@@ -2,6 +2,7 @@ package ngap
 
 import (
 	"encoding/hex"
+	"net"
 	"strconv"
 
 	"github.com/sirupsen/logrus"
@@ -4213,12 +4214,21 @@ func buildCriticalityDiagnosticsIEItem(ieCriticality aper.Enumerated, ieID int64
 }
 
 func printRanInfo(ran *context.AmfRan) {
+	var addr net.Addr
+	var remote_ip string
+
+	addr = ran.Conn.RemoteAddr()
+
+	remote_ip = "Undefined"
+	if addr != nil {
+		remote_ip = addr.String()
+	}
 	switch ran.RanPresent {
 	case context.RanPresentGNbId:
-		Ngaplog.Tracef("IP[%s] GNbId[%s]", ran.Conn.RemoteAddr().String(), ran.RanId.GNbId.GNBValue)
+		Ngaplog.Tracef("IP[%s] GNbId[%s]", remote_ip, ran.RanId.GNbId.GNBValue)
 	case context.RanPresentNgeNbId:
-		Ngaplog.Tracef("IP[%s] NgeNbId[%s]", ran.Conn.RemoteAddr().String(), ran.RanId.NgeNbId)
+		Ngaplog.Tracef("IP[%s] NgeNbId[%s]", remote_ip, ran.RanId.NgeNbId)
 	case context.RanPresentN3IwfId:
-		Ngaplog.Tracef("IP[%s] N3IwfId[%s]", ran.Conn.RemoteAddr().String(), ran.RanId.N3IwfId)
+		Ngaplog.Tracef("IP[%s] N3IwfId[%s]", remote_ip, ran.RanId.N3IwfId)
 	}
 }
