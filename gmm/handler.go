@@ -1229,7 +1229,6 @@ func HandleMobilityAndPeriodicRegistrationUpdating(ue *context.AmfUe, anType mod
 		} else {
 			ngap_message.SendDownlinkNasTransport(ue.RanUe[anType], nasPdu, nil)
 		}
-		ue.ClearRegistrationRequestData(anType)
 		return nil
 	}
 }
@@ -1732,7 +1731,7 @@ func AuthenticationProcedure(ue *context.AmfUe, accessType models.AccessType) (b
 // TS 24501 5.6.1
 func HandleServiceRequest(ue *context.AmfUe, anType models.AccessType,
 	serviceRequest *nasMessage.ServiceRequest) error {
-	logger.GmmLog.Info("Handle Service Reqeust")
+	logger.GmmLog.Info("Handle Service Request")
 
 	if ue == nil {
 		return fmt.Errorf("AmfUe is nil")
