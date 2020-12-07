@@ -18,4 +18,4 @@ require (
 	gopkg.in/yaml.v2 v2.4.0
 )
 
-replace free5gc => /home/luiz/Projects/free5gc
+replace free5gc => ../free5gc
