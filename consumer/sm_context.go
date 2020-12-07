@@ -1,11 +1,11 @@
 package consumer
 
 import (
+	amf_context "amf/context"
 	"context"
 	"free5gc/lib/openapi"
 	"free5gc/lib/openapi/Nsmf_PDUSession"
 	"free5gc/lib/openapi/models"
-	amf_context "free5gc/src/amf/context"
 	"strconv"
 )
 

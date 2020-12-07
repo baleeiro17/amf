@@ -1,13 +1,14 @@
 package oam
 
 import (
+	"amf/logger"
+	"amf/producer"
 	"free5gc/lib/http_wrapper"
 	"free5gc/lib/openapi"
 	"free5gc/lib/openapi/models"
-	"free5gc/src/amf/logger"
-	"free5gc/src/amf/producer"
-	"github.com/gin-gonic/gin"
 	"net/http"
+
+	"github.com/gin-gonic/gin"
 )
 
 func setCorsHeader(c *gin.Context) {

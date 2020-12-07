@@ -10,8 +10,8 @@
 package location
 
 import (
+	"amf/logger"
 	"free5gc/lib/logger_util"
-	"free5gc/src/amf/logger"
 	"net/http"
 	"strings"
 

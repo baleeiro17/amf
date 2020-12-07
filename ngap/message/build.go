@@ -1,6 +1,8 @@
 package message
 
 import (
+	"amf/context"
+	"amf/logger"
 	"encoding/hex"
 	"fmt"
 	"free5gc/lib/aper"
@@ -8,8 +10,6 @@ import (
 	"free5gc/lib/ngap/ngapConvert"
 	"free5gc/lib/ngap/ngapType"
 	"free5gc/lib/openapi/models"
-	"free5gc/src/amf/context"
-	"free5gc/src/amf/logger"
 	"strings"
 )
 

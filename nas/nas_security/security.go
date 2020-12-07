@@ -1,13 +1,13 @@
 package nas_security
 
 import (
+	"amf/context"
+	"amf/logger"
 	"encoding/hex"
 	"fmt"
 	"free5gc/lib/nas"
 	"free5gc/lib/nas/security"
 	"free5gc/lib/openapi/models"
-	"free5gc/src/amf/context"
-	"free5gc/src/amf/logger"
 	"reflect"
 )
 

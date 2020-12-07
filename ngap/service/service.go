@@ -1,8 +1,8 @@
 package service
 
 import (
+	"amf/logger"
 	"encoding/hex"
-	"free5gc/src/amf/logger"
 	"io"
 	"net"
 	"sync"

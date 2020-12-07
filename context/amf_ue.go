@@ -1,6 +1,7 @@
 package context
 
 import (
+	"amf/logger"
 	"encoding/base64"
 	"encoding/binary"
 	"encoding/hex"
@@ -11,7 +12,6 @@ import (
 	"free5gc/lib/nas/nasType"
 	"free5gc/lib/nas/security"
 	"free5gc/lib/openapi/models"
-	"free5gc/src/amf/logger"
 	"reflect"
 	"regexp"
 	"sync"

@@ -1,14 +1,14 @@
 package consumer
 
 import (
+	amf_context "amf/context"
+	"amf/logger"
+	"amf/util"
 	"context"
 	"fmt"
 	"free5gc/lib/openapi"
 	"free5gc/lib/openapi/Nnrf_NFManagement"
 	"free5gc/lib/openapi/models"
-	amf_context "free5gc/src/amf/context"
-	"free5gc/src/amf/logger"
-	"free5gc/src/amf/util"
 	"net/http"
 	"strings"
 	"time"

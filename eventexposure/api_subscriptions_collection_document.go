@@ -10,11 +10,11 @@
 package eventexposure
 
 import (
+	"amf/logger"
+	"amf/producer"
 	"free5gc/lib/http_wrapper"
 	"free5gc/lib/openapi"
 	"free5gc/lib/openapi/models"
-	"free5gc/src/amf/logger"
-	"free5gc/src/amf/producer"
 	"net/http"
 
 	"github.com/gin-gonic/gin"

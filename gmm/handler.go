@@ -1,6 +1,13 @@
 package gmm
 
 import (
+	"amf/consumer"
+	"amf/context"
+	gmm_message "amf/gmm/message"
+	"amf/logger"
+	ngap_message "amf/ngap/message"
+	"amf/producer/callback"
+	"amf/util"
 	"bytes"
 	"crypto/sha256"
 	"encoding/hex"
@@ -16,13 +23,6 @@ import (
 	"free5gc/lib/ngap/ngapType"
 	"free5gc/lib/openapi/Nnrf_NFDiscovery"
 	"free5gc/lib/openapi/models"
-	"free5gc/src/amf/consumer"
-	"free5gc/src/amf/context"
-	gmm_message "free5gc/src/amf/gmm/message"
-	"free5gc/src/amf/logger"
-	ngap_message "free5gc/src/amf/ngap/message"
-	"free5gc/src/amf/producer/callback"
-	"free5gc/src/amf/util"
 	"net/url"
 	"reflect"
 	"strconv"

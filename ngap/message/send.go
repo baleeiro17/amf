@@ -1,13 +1,13 @@
 package message
 
 import (
+	"amf/context"
+	"amf/logger"
+	"amf/producer/callback"
+	"amf/util"
 	"free5gc/lib/aper"
 	"free5gc/lib/ngap/ngapType"
 	"free5gc/lib/openapi/models"
-	"free5gc/src/amf/context"
-	"free5gc/src/amf/logger"
-	"free5gc/src/amf/producer/callback"
-	"free5gc/src/amf/util"
 	"net"
 	"time"
 

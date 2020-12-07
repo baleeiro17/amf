@@ -1,8 +1,8 @@
 package gmm_test
 
 import (
+	"amf/gmm"
 	"free5gc/lib/fsm"
-	"free5gc/src/amf/gmm"
 	"testing"
 )
 

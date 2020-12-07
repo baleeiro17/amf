@@ -1,13 +1,13 @@
 package gmm
 
 import (
+	"amf/context"
+	gmm_message "amf/gmm/message"
+	"amf/logger"
 	"free5gc/lib/fsm"
 	"free5gc/lib/nas"
 	"free5gc/lib/nas/nasMessage"
 	"free5gc/lib/openapi/models"
-	"free5gc/src/amf/context"
-	gmm_message "free5gc/src/amf/gmm/message"
-	"free5gc/src/amf/logger"
 )
 
 func DeRegistered(state *fsm.State, event fsm.EventType, args fsm.ArgsType) {

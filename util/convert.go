@@ -1,10 +1,10 @@
 package util
 
 import (
+	"amf/logger"
 	"encoding/hex"
 	"fmt"
 	"free5gc/lib/openapi/models"
-	"free5gc/src/amf/logger"
 	"strconv"
 )
 

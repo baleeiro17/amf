@@ -3,10 +3,10 @@ package consumer
 import (
 	"context"
 
+	amf_context "amf/context"
 	"free5gc/lib/openapi"
 	"free5gc/lib/openapi/Nudm_UEContextManagement"
 	"free5gc/lib/openapi/models"
-	amf_context "free5gc/src/amf/context"
 )
 
 func UeCmRegistration(ue *amf_context.AmfUe, accessType models.AccessType, initialRegistrationInd bool) (

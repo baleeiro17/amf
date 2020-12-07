@@ -1,9 +1,9 @@
 package main
 
 import (
-	"free5gc/src/amf/logger"
-	"free5gc/src/amf/service"
-	"free5gc/src/amf/version"
+	"amf/logger"
+	"amf/service"
+	"amf/version"
 	"free5gc/src/app"
 	"os"
 

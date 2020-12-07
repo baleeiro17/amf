@@ -1,8 +1,8 @@
 package util
 
 import (
+	"amf/logger"
 	"encoding/json"
-	"free5gc/src/amf/logger"
 	"reflect"
 )
 
