@@ -15,7 +15,26 @@ WORKDIR $GOPATH/src/amf
 COPY go.mod .
 RUN go mod download
 
-COPY . .
+COPY communication communication
+COPY config config
+COPY consumer consumer
+COPY context context
+COPY eventexposure eventexposure
+COPY factory factory
+COPY gmm gmm
+COPY httpcallback httpcallback
+COPY location location
+COPY logger logger
+COPY mt mt
+COPY nas nas
+COPY ngap ngap
+COPY oam oam
+COPY producer producer
+COPY service service
+COPY util util
+COPY version version
+COPY amf.go .
+COPY Makefile .
 
 RUN make amf
 
@@ -43,6 +62,10 @@ RUN if [ "$DEBUG_TOOLS" = "true" ] ; then apk add -U vim strace net-tools curl n
 # Move to the binary path
 WORKDIR /amf/${F5GC_MODULE}
 
+COPY -f entrypoint.sh ./
+RUN chmod +x entrypoint.sh
+
+
 # Config files volume
 VOLUME [ "/amf/config" ]
 
@@ -51,3 +74,5 @@ VOLUME [ "/amf/support/TLS" ]
 
 # Exposed ports
 EXPOSE 29518
+
+ENTRYPOINT [ "entrypoint.sh" ]
