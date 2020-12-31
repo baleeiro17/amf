@@ -1,7 +1,11 @@
 package logger
 
 import (
+	"bytes"
+	"fmt"
 	"os"
+	"runtime"
+	"strconv"
 	"time"
 
 	formatter "github.com/antonfisher/nested-logrus-formatter"
@@ -30,16 +34,37 @@ var ConsumerLog *logrus.Entry
 var EeLog *logrus.Entry
 var GinLog *logrus.Entry
 
+func GetGID() uint64 {
+	b := make([]byte, 64)
+	b = b[:runtime.Stack(b, false)]
+	b = bytes.TrimPrefix(b, []byte("goroutine "))
+	b = b[:bytes.IndexByte(b, ' ')]
+	n, _ := strconv.ParseUint(string(b), 10, 64)
+	return n
+}
+
+func formatLog(fr *runtime.Frame) string {
+	return fmt.Sprintf(
+		" (%s:%d %s) - GID [%d]",
+		fr.File,
+		fr.Line,
+		fr.Function,
+		GetGID(),
+	)
+
+}
+
 func init() {
 	log = logrus.New()
-	log.SetReportCaller(false)
+	log.SetReportCaller(true)
 
 	log.Formatter = &formatter.Formatter{
-		TimestampFormat: time.RFC3339,
-		TrimMessages:    true,
-		NoFieldsSpace:   true,
-		HideKeys:        true,
-		FieldsOrder:     []string{"component", "category"},
+		TimestampFormat:       time.RFC3339,
+		TrimMessages:          true,
+		NoFieldsSpace:         true,
+		HideKeys:              true,
+		FieldsOrder:           []string{"component", "category", "caller"},
+		CustomCallerFormatter: formatLog,
 	}
 
 	free5gcLogHook, err := logger_util.NewFileHook(logger_conf.Free5gcLogFile, os.O_CREATE|os.O_APPEND|os.O_RDWR, 0666)
