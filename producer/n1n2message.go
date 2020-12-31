@@ -28,7 +28,10 @@ func HandleN1N2MessageTransferRequest(request *http_wrapper.Request) *http_wrapp
 	n1n2MessageTransferRspData, locationHeader, problemDetails, transferErr := N1N2MessageTransferProcedure(
 		ueContextID, reqUri, n1n2MessageTransferRequest)
 
+	logger.ProducerLog.Tracef("N1N2MessageTransferRspData %s", n1n2MessageTransferRspData != nil)
+
 	if n1n2MessageTransferRspData != nil {
+		logger.ProducerLog.Tracef("N1N2MessageTransferRspData.Cause %s", n1n2MessageTransferRspData.Cause)
 		switch n1n2MessageTransferRspData.Cause {
 		case models.N1N2MessageTransferCause_N1_MSG_NOT_TRANSFERRED:
 			fallthrough
@@ -41,10 +44,14 @@ func HandleN1N2MessageTransferRequest(request *http_wrapper.Request) *http_wrapp
 			return http_wrapper.NewResponse(http.StatusAccepted, headers, n1n2MessageTransferRspData)
 		}
 	} else if problemDetails != nil {
+		logger.ProducerLog.Tracef("ProblemDetails Status %d - %s", problemDetails.Status, problemDetails)
 		return http_wrapper.NewResponse(int(problemDetails.Status), nil, problemDetails)
 	} else if transferErr != nil {
+		logger.ProducerLog.Tracef("TransferErr Status %d - %s", transferErr.Error.Status, transferErr)
 		return http_wrapper.NewResponse(int(transferErr.Error.Status), nil, transferErr)
 	}
+
+	logger.ProducerLog.Tracef("Problem UNSPECIFIED")
 
 	problemDetails = &models.ProblemDetails{
 		Status: http.StatusForbidden,
