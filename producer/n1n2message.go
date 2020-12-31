@@ -98,9 +98,12 @@ func N1N2MessageTransferProcedure(ueContextID string, reqUri string,
 		requestData.N2InfoContainer.N2InformationClass == models.N2InformationClass_SM {
 		smContext = ue.SmContextList[requestData.PduSessionId]
 	}
+	logger.ProducerLog.Tracef("SmContext? %s", smContext != nil)
 	if smContext != nil {
+		logger.ProducerLog.Tracef("SmContext %s", smContext)
 		anType = smContext.PduSessionContext.AccessType
 	}
+
 	onGoing := ue.OnGoing[anType]
 	// TODO: Error Status 307, 403 in TS29.518 Table 6.1.3.5.3.1-3
 	if onGoing != nil {
@@ -139,6 +142,7 @@ func N1N2MessageTransferProcedure(ueContextID string, reqUri string,
 		n1n2MessageTransferRspData.Cause = models.N1N2MessageTransferCause_N1_N2_TRANSFER_INITIATED
 
 		if n2Info == nil {
+			logger.ProducerLog.Tracef("N2Info is NIL. requestData.N1MessageContainer.N1MessageClass = %s", requestData.N1MessageContainer.N1MessageClass)
 			switch requestData.N1MessageContainer.N1MessageClass {
 			case models.N1MessageClass_SM:
 				gmm_message.SendDLNASTransport(ue.RanUe[anType], nasMessage.PayloadContainerTypeN1SMInfo, n1Msg,
@@ -154,6 +158,7 @@ func N1N2MessageTransferProcedure(ueContextID string, reqUri string,
 		}
 		if smContext != nil {
 			smInfo := requestData.N2InfoContainer.SmInfo
+			logger.ProducerLog.Tracef("SmInfo: %s", smInfo)
 			switch smInfo.N2InfoContent.NgapIeType {
 			case models.NgapIeType_PDU_RES_SETUP_REQ:
 				logger.ProducerLog.Debugln("AMF Transfer NGAP PDU Resource Setup Req from SMF")
