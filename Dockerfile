@@ -65,6 +65,8 @@ WORKDIR /amf/${F5GC_MODULE}
 COPY entrypoint.sh ./
 RUN chmod +x entrypoint.sh
 
+COPY config/amfcfg.conf /amf/config/amfcfg.conf
+
 
 # Config files volume
 VOLUME [ "/amf/config" ]
