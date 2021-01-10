@@ -62,7 +62,7 @@ RUN if [ "$DEBUG_TOOLS" = "true" ] ; then apk add -U vim strace net-tools curl n
 # Move to the binary path
 WORKDIR /amf/${F5GC_MODULE}
 
-COPY -f entrypoint.sh ./
+COPY entrypoint.sh ./
 RUN chmod +x entrypoint.sh
 
 
@@ -75,4 +75,4 @@ VOLUME [ "/amf/support/TLS" ]
 # Exposed ports
 EXPOSE 29518
 
-ENTRYPOINT [ "entrypoint.sh" ]
+ENTRYPOINT [ "/amf/amf/entrypoint.sh" ]

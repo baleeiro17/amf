@@ -8,6 +8,7 @@ import (
 	"os/signal"
 	"sync"
 	"syscall"
+	"time"
 
 	"github.com/gin-contrib/cors"
 	"github.com/sirupsen/logrus"
@@ -243,6 +244,20 @@ func (amf *AMF) Exec(c *cli.Context) error {
 func (amf *AMF) Terminate() {
 	logger.InitLog.Infof("Terminating AMF...")
 	amfSelf := context.AMF_Self()
+
+	for {
+		hasConnections := false
+		context.AMF_Self().Connections.Range(func(k, v interface{}) bool {
+			hasConnections = true
+			return false
+		})
+
+		if !hasConnections {
+			break
+		}
+		logger.InitLog.Infof("Wainting connections AMF...")
+		time.Sleep(1 * time.Second)
+	}
 
 	// TODO: forward registered UE contexts to target AMF in the same AMF set if there is one
 

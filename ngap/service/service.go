@@ -1,11 +1,11 @@
 package service
 
 import (
+	"amf/context"
 	"amf/logger"
 	"encoding/hex"
 	"io"
 	"net"
-	"sync"
 
 	"github.com/ishidawataru/sctp"
 )
@@ -16,7 +16,6 @@ const NGAP_PPID uint32 = 0x3c000000
 const readBufSize uint32 = 8192
 
 var sctpListener *sctp.SCTPListener
-var connections sync.Map
 
 func Run(addresses []string, port int, msgHandler Handler) {
 	ips := []net.IPAddr{}
@@ -102,7 +101,7 @@ func listenAndServe(addr *sctp.SCTPAddr, msgHandler Handler) {
 
 		logger.NgapLog.Infof("[AMF] SCTP Accept from: %s", conn.RemoteAddr().String())
 
-		connections.Store(conn, conn)
+		context.AMF_Self().Connections.Store(conn, conn)
 		go func() {
 			if err := handleConnection(conn, readBufSize, msgHandler); err != nil {
 				logger.NgapLog.Errorf("Handle connection[addr: %+v] error: %+v", conn.RemoteAddr(), err)
@@ -112,7 +111,7 @@ func listenAndServe(addr *sctp.SCTPAddr, msgHandler Handler) {
 			if err := conn.Close(); err != nil && err.Error() != "bad file descriptor" {
 				logger.NgapLog.Errorf("close connection error: %+v", err)
 			}
-			connections.Delete(conn)
+			context.AMF_Self().Connections.Delete(conn)
 		}()
 	}
 }
@@ -124,7 +123,7 @@ func Stop() {
 		logger.NgapLog.Infof("SCTP server may not close normally.")
 	}
 
-	connections.Range(func(key, value interface{}) bool {
+	context.AMF_Self().Connections.Range(func(key, value interface{}) bool {
 		conn := value.(net.Conn)
 		if err := conn.Close(); err != nil {
 			logger.NgapLog.Error(err)

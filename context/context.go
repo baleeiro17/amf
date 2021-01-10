@@ -63,6 +63,7 @@ type AMFContext struct {
 	T3502Value                      int      // unit is second
 	T3512Value                      int      // unit is second
 	Non3gppDeregistrationTimerValue int      // unit is second
+	Connections                     sync.Map
 }
 
 type AMFContextEventSubscription struct {
